@@ -5,16 +5,24 @@ let rainbowPic;
 let ponies = [];
 let howManyPonies = 200;
 let whichPony = 0;
+let vid;
 
 let mouseBoxx;
 let mouseBoxy;
 
 function setup(){
-  createCanvas(710, 400);
+  createCanvas(710, 500);
   ponyPic = loadImage('assets/pony.png');
   rainbowPic = loadImage('assets/rainbow.png');
+  vid = createVideo(['assets/transit.mov']);
   for (let i = 0; i < howManyPonies; i++){
     ponies[i] = new Pony();
+
+      vid.loop();
+  vid.hide();
+
+  stroke(0, 0, 0, 15);
+
   }
 }
 function draw(){
@@ -47,7 +55,9 @@ class Pony {
   }
   display(){
     if (this.visible){
-    image(ponyPic, this.x, this.y, 75, 75);
+            imageMode(CENTER);
+
+    image(vid, this.x, this.y, random(750), random(205));
     }
   }
   move(){
