@@ -6,34 +6,53 @@ let ponies = [];
 let howManyPonies = 200;
 let whichPony = 0;
 let vid;
-
+let playing = false;
+let angle = 0.0;
+let jitter = 0.0;
+var frames = 10;
 let mouseBoxx;
 let mouseBoxy;
 
 function setup(){
-  createCanvas(710, 500);
+  createCanvas(1810, 900, WEBGL);
   ponyPic = loadImage('assets/pony.png');
   rainbowPic = loadImage('assets/rainbow.png');
-  vid = createVideo(['assets/transit.mov']);
+  vid = createVideo(['assets/AIDANCING.mp4']);
+  
   for (let i = 0; i < howManyPonies; i++){
-    ponies[i] = new Pony();
-
-      vid.loop();
+  ponies[i] = new Pony();
+  vid.play
+  vid.loop();
   vid.hide();
-
-  stroke(0, 0, 0, 15);
+    button = createButton('play');
+  button.mousePressed(toggleVid);
+ // stroke(0, 0, 0, 15);
 
   }
+
+
+function toggleVid() {
+  if (playing) {
+    vid.pause();
+    button.html('play');
+  } else {
+    vid.loop();
+    button.html('pause');
+  }
+  playing = !playing;
+}
+
 }
 function draw(){
-  background(0);
-  image(rainbowPic, mouseX, mouseY, 50, 50);
-  noCursor();
+  background(0)
+  //image(vid, 1810, 900);
+image(vid, 100, 900, 50, 80);
+  //noCursor();
   for (let i = 0; i < howManyPonies; i++){
     ponies[i].move();
     ponies[i].display();
   }
-  image(rainbowPic, mouseBoxx, mouseBoxy, 50, 50);
+  //image(vid, mouseBoxx, mouseBoxy, 50, 80);
 }
 
 function mousePressed(){
@@ -49,15 +68,17 @@ class Pony {
   constructor(){
     this.x = random(width);
     this.y = random(height);
-    this.xspeed = random(0,1);
-    this.yspeed = random(0,1);
+    this.xspeed = random(0,5);
+    this.yspeed = random(0,5);
     this.visible = false;
   }
   display(){
     if (this.visible){
-            imageMode(CENTER);
+            //imageMode(CENTER);
 
-    image(vid, this.x, this.y, random(750), random(205));
+    image(vid, this.x, this.y, 750, 705);
+    rotateY(frameCount * .01);
+    translate(-500, -500, 10)
     }
   }
   move(){
